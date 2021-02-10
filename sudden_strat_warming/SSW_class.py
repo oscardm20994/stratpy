@@ -15,13 +15,15 @@ from SSW_detector import SSW_counter
 ## build SSW class which has attributes for different SSW metrics
 class SSW:
 	
-	## init function
+	## init function asks user to assign dataset name (e.g. SSW_UKESM_pi_ctrl for the UKESM model pre industrial control run) 
+	## and the years over which the data are evaluated
 	def __init__(self, dataset_name, years):
 		self.dataset_name = dataset_name
 		self.years = years
 
 
-
+	#function to calculate when SSWs occur in the simulation/observations. Input is an iris cube contaning the daily
+	# ZMZW on the 10hPa level.
 	def get_SSWs(self, ZMZW, thresh = 0):
 		#call function to detect SSWs
 		SSW_month, SSW_year, SSW_day = SSW_counter(ZMZW, self.years[0], self.years[-1], thresh)
@@ -66,13 +68,11 @@ class SSW:
 	
 	## function to give the SSW rate in a given dataset over the whole time period
 	def get_SSW_rate(self):
-		
 		self.SSWrate = len(self.SSW_month)/np.float(len(self.years))
-		
 		return
 	
 	### function to give the error bounds on a given SSW rate
-	### using bootstrap resampling. gives the mean +-
+	### using bootstrap resampling. gives the mean +- an estiamted error. 
 	def SSW_rate_Er(self, SSW_timeseries):
 		
 		## resample SSW time series and calculate set of rates
@@ -92,7 +92,7 @@ class SSW:
 		return SSWrate_Er, rates
 	
 	
-	##call above function
+	##call above function and assign the errors in SSW rates to the instance. 
 	def get_SSW_rate_Er(self):
 	
 		self.SSWrate_Er = self.SSW_rate_Er(self.SSW_timeseries)[0]
