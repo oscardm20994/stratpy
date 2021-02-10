@@ -9,7 +9,7 @@ import iris
 import numpy as np
 import iris.coord_categorisation as coord_cat
 from collections import Counter
-from SSW_detector import SSW_counter
+from SSW_detector.py import SSW_counter
 
 
 ## build SSW class which has attributes for different SSW metrics
@@ -24,8 +24,9 @@ class SSW:
 
 	#function to calculate when SSWs occur in the simulation/observations. Input is an iris cube contaning the daily
 	# ZMZW on the 10hPa level.
-	def get_SSWs(self, ZMZW, thresh = 0):
-		#call function to detect SSWs
+	def get_SSWs(self, path_to_ZMZW, thresh = 0):
+
+		#call function to detect SSWs                
 		SSW_month, SSW_year, SSW_day = SSW_counter(ZMZW, self.years[0], self.years[-1], thresh)
 		
 		#assign attributes of SSW instance to calulated SSW times 
@@ -73,7 +74,7 @@ class SSW:
 	
 	### function to give the error bounds on a given SSW rate
 	### using bootstrap resampling. gives the mean +- an estiamted error. 
-	def SSW_rate_Er(self, SSW_timeseries):
+	def SSW_rate_Er(self, SSW_timeseries, resample_interval = len(self.years)/10.):
 		
 		## resample SSW time series and calculate set of rates
 		rates = np.empty(0)
