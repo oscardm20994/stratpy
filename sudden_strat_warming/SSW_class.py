@@ -54,7 +54,6 @@ class SSW:
 		#check how many cubes
 		if len(cubes) == 1:
 			cube = cubes[0]
-			cube = add_times(cube, 't')
 		
 		else:
 			cube = cubes

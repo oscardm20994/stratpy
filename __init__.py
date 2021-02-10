@@ -8,4 +8,4 @@ innit file for stratpy package
 
 import iris
 import numpy as np
-import malplotlib
+
