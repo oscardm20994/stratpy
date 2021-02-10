@@ -1,4 +1,4 @@
-`#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Wed Feb 10 15:49:49 2021
@@ -11,18 +11,19 @@ import numpy as np
 def SSW_counter(U_strat, start_year, end_year, thresh):
 #identify SSWs from U_strat cube. defition of an SSW: U becomes negative at 60N 10hPa in months NDJFM (20 days after an SSW, another can occur)
 
-	#restrict months
+	#restrict months to Nov-April
 	SSW_day, U_SSW_seasons, SSW, final, indexi, indexj, SSW_year = [], [], [], [], [], [], []
 	U_strat_ND = U_strat.extract(iris.Constraint(month = ['Nov', 'Dec']))
 	U_strat_JFMA = U_strat.extract(iris.Constraint(month = ['Jan', 'Feb', 'Mar', 'Apr']))
 
+    #place each extended winter in a cublist by itself
 	U_SSW_seasons.append(U_strat_JFMA.extract(iris.Constraint(year = start_year)))
 	for i in range(start_year, end_year-1):
-		print(i)
 		dummy2 = iris.cube.CubeList([U_strat_ND.extract(iris.Constraint(year = i)),U_strat_JFMA.extract(iris.Constraint(year = i+1))])
 		U_SSW_seasons.append(dummy2.concatenate_cube())
-		print(U_SSW_seasons)
-
+    
+    #loops over winters scanning through to check whether the ZMZW reverses at
+    #any point
 	for j in range(1,len(U_SSW_seasons)):
 		print(j)
 		i=0
