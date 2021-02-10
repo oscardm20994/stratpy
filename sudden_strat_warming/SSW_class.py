@@ -22,11 +22,14 @@ class SSW:
 
 
 
-		def get_SSWs(self, ZMZW, thresh = 0):
-				SSW, SSW_year, SSW_day = SSW_counter(ZMZW, self.years[0], self.years[-1], thresh) 
-				self.SSW_month = SSW
-				self.SSW_year = SSW_year
-				self.SSW_day_number = SSW_year
+	def get_SSWs(self, ZMZW, thresh = 0):
+		#call function to detect SSWs
+		SSW_month, SSW_year, SSW_day = SSW_counter(ZMZW, self.years[0], self.years[-1], thresh)
+		
+		#assign attributes of SSW instance to calulated SSW times 
+		self.SSW_month = SSW_month
+		self.SSW_year = SSW_year
+		self.SSW_day_number = SSW_year
 
 	
 
