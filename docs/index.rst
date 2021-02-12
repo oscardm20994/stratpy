@@ -11,10 +11,6 @@ Welcome to stratpy's documentation!
    :caption: Contents:
 
 
-
-automodapi:: mypackage.mymodule
-
-
 Indices and tables
 ==================
 
