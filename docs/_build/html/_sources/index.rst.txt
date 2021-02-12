@@ -12,9 +12,13 @@ Welcome to stratpy's documentation!
 
 
 
+automodapi:: mypackage.mymodule
+
+
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
